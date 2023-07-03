@@ -113,16 +113,155 @@ FOREIGN KEY (emp_title_id) REFERENCES titles(title_id); <br />
 
 # Data Analysis
 
-#### 1.  List the employee number, last name, first name, sex and salary of each employee
+### 1.  List the employee number, last name, first name, sex and salary of each employee
 
 Use employee  and order status table joined on emp_no
 
 CREATE VIEW AS Question1 <br />
 SELECT 	e.emp_no AS "Employee Number", <br />
---> e.last_name AS "Last Name", <br />
---> e.first_name AS "First Name", <br />
---> e.sex AS "Sex", <br />
---> o.salary AS "Annual Salary" <br />
+&nbsp; e.last_name AS "Last Name", <br />
+&nbsp; e.first_name AS "First Name", <br />
+&nbsp; e.sex AS "Sex", <br />
+&nbsp; o.salary AS "Annual Salary" <br />
 FROM employees e <br />
 JOIN salaries o <br />
 ON (e.emp_no=o.emp_no); <br />
+
+![](https://github.com/TraceyGeneau/sql-challenge/blob/master/EmployeeSQL/images/Question1.png)
+
+### 2. List the first name, last name, and hire date for te employees who were hired in 1986
+
+CREATE VIEW Question2 AS <br />
+SELECT 	e.emp_no AS "Employee Number", <br />
+&nbsp;		e.first_name AS "First Name", <br />
+&nbsp;		e.last_name AS "Last Name", <br />
+&nbsp;		e.hire_date AS "Hire Date" <br />
+FROM employees e <br />
+WHERE hire_date >= '1986-01-01' <br />
+AND hire_date <= '1986-12-31'; <br />
+
+![](https://github.com/TraceyGeneau/sql-challenge/blob/master/EmployeeSQL/images/Question2.png)
+
+### 3. List the manager of each department along with their department number, department name, employee number, last name and first name.
+
+Employee Number <br />
+Manager Name First Last <br />
+Department Number <br />
+Department Name <br />
+
+![](https://github.com/TraceyGeneau/sql-challenge/blob/master/EmployeeSQL/images/Question3_ETRelationship.png)
+
+CREATE VIEW Question3 AS <br />
+SELECT	e.emp_no AS "Employee No", <br />
+&nbsp;		e.first_name AS "First Name", <br />
+&nbsp;		e.last_name AS "Last Name", <br />
+&nbsp;		m.dept_no AS "Dept No", <br />
+&nbsp;		d.dept_name AS "Department Name" <br />
+FROM employees e <br />
+JOIN dept_manager m <br />
+ON (e.emp_no=m.emp_no) <br />
+JOIN departments d <br />
+ON (m.dept_no=d.dept_no); <br />
+
+![](https://github.com/TraceyGeneau/sql-challenge/blob/master/EmployeeSQL/images/Question3.png)
+
+### 4. List the department number for each employee along with that employee's employee number, last name, first name and department name.
+
+Need <br />
+Department Number <br />
+Employee Number <br />
+Last Name <br />
+First Name <br />
+Department Name <br />
+
+![](https://github.com/TraceyGeneau/sql-challenge/blob/master/EmployeeSQL/images/Question4_ETRelationship.png)
+
+CREATE VIEW Question4 AS <br />
+SELECT	de.dept_no AS "Dept No", <br />
+&nbsp;		e.emp_no AS "Employee No", <br />
+&nbsp;		e.last_name AS "Last Name", <br />
+&nbsp;		e.first_name AS "First Name", <br />
+&nbsp;		d.dept_name AS "Department Name" <br />
+FROM employees e <br />
+JOIN dept_emp de <br />
+ON (e.emp_no=de.emp_no) <br />
+JOIN departments d <br />
+ON (de.dept_no=d.dept_no); <br />
+
+![](https://github.com/TraceyGeneau/sql-challenge/blob/master/EmployeeSQL/images/Question4.png)
+
+### 5. List first name, last name, sex of each employee whose first name is Hercules and whose last name begins with a B
+
+CREATE VIEW Question5 AS <br /> 
+SELECT 	e.emp_no AS "Employee Number", <br />
+&nbsp;		        e.first_name AS "First Name", <br />
+&nbsp;		        e.last_name AS "Last Name", <br />
+&nbsp;		        e.sex AS "Sex" <br />
+FROM employees e <br />
+WHERE first_name = 'Hercules' <br />
+AND last_name LIKE 'B%'; <br />
+
+![](https://github.com/TraceyGeneau/sql-challenge/blob/master/EmployeeSQL/images/Question5.png)
+
+### 6. List employees in the Sales department, including their employee number, last name, first name, and department name.  
+
+Need is <br />
+Sales Department <br />
+Employee Number <br />
+Last Name <br />
+First Name <br />
+
+
+Department Name
+
+![](https://github.com/TraceyGeneau/sql-challenge/blob/master/EmployeeSQL/images/Question4_ETRelationship.png)
+
+CREATE VIEW Question6 AS  <br />
+SELECT	e.emp_no AS "Employee No", <br />
+&nbsp;		e.last_name AS "Last Name", <br />
+&nbsp;		e.first_name AS "First Name", <br />
+&nbsp;		d.dept_name AS "Department Name" <br />
+FROM employees e <br />
+JOIN dept_emp de <br />
+ON (e.emp_no=de.emp_no) <br />
+JOIN departments d <br />
+ON (de.dept_no=d.dept_no) <br />
+Where d.dept_name = 'Sales'; <br />
+
+
+
+### 7. List each employee in the Sales and Developement Departments, including their employee number, last name, first name and department name.
+
+Need <br />
+Sales & Developmental Department <br />
+Employee no <br />
+Last Name <br />
+First Name <br />
+Department Number <br />
+
+![](https://github.com/TraceyGeneau/sql-challenge/blob/master/EmployeeSQL/images/Question4_ETRelationship.png)
+
+CREATE VIEW Question7 AS <br />
+SELECT	e.emp_no AS "Employee No", <br />
+&nbsp;		e.last_name AS "Last Name", <br />
+&nbsp;		e.first_name AS "First Name", <br />
+&nbsp;		d.dept_name AS "Department Name" <br />
+FROM employees e <br />
+JOIN dept_emp de <br />
+ON (e.emp_no=de.emp_no) <br />
+JOIN departments d <br />
+ON (de.dept_no=d.dept_no) <br />
+WHERE d.dept_name='Development' <br />
+OR d.dept_name = 'Sales'; <br />
+
+![](https://github.com/TraceyGeneau/sql-challenge/blob/master/EmployeeSQL/images/Question7.png)
+
+### 8. List the Frequency Counts, in descending order, of all employees Last Names (That is how many employees share each last name.
+
+SELECT employees.last_name, <br />
+    count(employees.last_name) AS "Frequency Count" <br />
+   FROM employees <br />
+  GROUP BY employees.last_name <br />
+  ORDER BY employees.last_name DESC; <br />
+
+ ![](https://github.com/TraceyGeneau/sql-challenge/blob/master/EmployeeSQL/images/Question8.png) 
