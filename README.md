@@ -228,7 +228,7 @@ JOIN departments d <br />
 ON (de.dept_no=d.dept_no) <br />
 Where d.dept_name = 'Sales'; <br />
 
-
+![](https://github.com/TraceyGeneau/sql-challenge/blob/master/EmployeeSQL/images/Question6.png)
 
 ### 7. List each employee in the Sales and Developement Departments, including their employee number, last name, first name and department name.
 
