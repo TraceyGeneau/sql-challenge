@@ -1,7 +1,7 @@
-#Data Engineering
+Data Engineering
+--
 
 PK - Primary Key
-
 FK - Foreign Key
 
 https://app.quickdatabasediagrams.com/#/
@@ -40,3 +40,4 @@ first_name VARCHAR
 last_name VARCHAR	
 sex VARCHAR
 hire_date DATE
+
